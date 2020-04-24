@@ -24,3 +24,5 @@ org.gnome.shell.extensions.blur sigma 1
 ![lock screen](https://i.stack.imgur.com/XCB8h.jpg)
 
 ![directory structure](https://i.stack.imgur.com/y1is6.png)
+
+Extension Icon Used in gnome-extensions.org site is the credit of https://materialdesignicons.com/ (https://github.com/google/material-design-icons/blob/master/LICENSE).
