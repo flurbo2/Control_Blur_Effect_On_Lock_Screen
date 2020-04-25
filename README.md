@@ -4,6 +4,8 @@ Control the Blur Effect on Lock Screen which is newly introduced in GNOME 3.36
 with the introduction of new lock screen in GNOME 3.36, the background is blurred.
 with this extension you can control the blur effect.
 
+for getting the extension click this link https://extensions.gnome.org/extension/2935/control-blur-effect-on-lock-screen/
+
 you must compile the schemas to control the blur effect. To do so,
 1. copy the file `org.gnome.shell.extensions.blur.gschema.xml` which is inside schemas directory to `$HOME/.local/share/glib-2.0/schemas`
 2. and run the command `glib-compile-schemas ./` from the directory `$HOME/.local/share/glib-2.0/schemas`
