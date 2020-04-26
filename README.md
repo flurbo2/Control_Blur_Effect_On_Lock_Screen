@@ -22,4 +22,6 @@ org.gnome.shell.extensions.blur sigma 1
 
 ![directory structure](https://i.stack.imgur.com/y1is6.png)
 
+![lock screen blur effect on the desktop image after installing the extension](https://i.stack.imgur.com/TXk14.jpg)
+
 Extension Icon Used in gnome-extensions.org site is the credit of https://materialdesignicons.com/ (https://github.com/google/material-design-icons/blob/master/LICENSE).
