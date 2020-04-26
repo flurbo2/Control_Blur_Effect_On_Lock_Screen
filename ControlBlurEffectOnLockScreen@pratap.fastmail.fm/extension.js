@@ -3,13 +3,24 @@ const Main = imports.ui.main;
 const Background = imports.ui.background;
 const ExtensionUtils = imports.misc.extensionUtils;
 
-const BRIGHTNESS_KEY = 'brightness';
-const SIGMA_KEY = 'sigma';
+const BLUR_SCHEMA = 'org.gnome.shell.extensions.blur';
 
 let ORIGINAL = imports.ui.unlockDialog.UnlockDialog.prototype._createBackground;
 
-function _controlBlur(monitorIndex) {
+class Blur {
+	constructor() {
+}
 
+	enable() {
+	imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = this._controlBlur;
+}
+
+	disable() {
+	imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = ORIGINAL;
+}
+
+	_controlBlur(monitorIndex) {
+	
         let monitor = Main.layoutManager.monitors[monitorIndex];
         let widget = new St.Widget({
             style_class: 'screen-shield-background',
@@ -30,26 +41,17 @@ function _controlBlur(monitorIndex) {
         this._backgroundGroup.add_child(widget);
 
         const themeContext = St.ThemeContext.get_for_stage(global.stage);
+        
+	let BRIGHTNESS_VALUE = ExtensionUtils.getSettings(BLUR_SCHEMA).get_double('brightness');
+	let SIGMA_VALUE = ExtensionUtils.getSettings(BLUR_SCHEMA).get_int('sigma');
+        
+        let effect = new Shell.BlurEffect({ brightness: BRIGHTNESS_VALUE , sigma: SIGMA_VALUE * themeContext.scale_factor, });
 
-        let effect = new Shell.BlurEffect({
-            brightness: ExtensionUtils.getSettings().get_string(BRIGHTNESS_KEY),
-            sigma: ExtensionUtils.getSettings().get_string(SIGMA_KEY) * themeContext.scale_factor,
-        });
+        this._scaleChangedId = themeContext.connect('notify::scale-factor', () => { effect.sigma = SIGMA_VALUE * themeContext.scale_factor; });
 
-        this._scaleChangedId = themeContext.connect('notify::scale-factor', () => {
-            effect.sigma = ExtensionUtils.getSettings().get_string(SIGMA_KEY) * themeContext.scale_factor;
-        });
-
-        widget.add_effect(effect);
-    }
-
-function init() {}
-
-function enable() {
-imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = _controlBlur;
+        widget.add_effect(effect); }
 }
 
+function init() { return new Blur(); }
 
-function disable() {
-imports.ui.unlockDialog.UnlockDialog.prototype._createBackground = ORIGINAL;
-}
+
