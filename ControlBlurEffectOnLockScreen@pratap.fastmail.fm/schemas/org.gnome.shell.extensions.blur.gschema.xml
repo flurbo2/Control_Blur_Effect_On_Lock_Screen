@@ -1,4 +1,4 @@
-<schemalist gettext-domain="gnome-shell-extensions">
+<schemalist>
   <schema id="org.gnome.shell.extensions.blur" path="/org/gnome/shell/extensions/blur/">
   
     <key name="brightness" type="d">
